@@ -9,7 +9,7 @@ using BeatSaberMarkupLanguage.Settings;
 using OcuFix.Configuration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
+using UnityEngine.XR.OpenXR;
 using IPALogger = IPA.Logging.Logger;
 
 namespace OcuFix
@@ -19,13 +19,12 @@ namespace OcuFix
     {
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
-        internal static VRPlatformSDK VRPlatformSDK { get; }
 
         private bool ShouldIgnore()
         {
-            if (VRPlatformSDK is VRPlatformSDK.Oculus && PluginConfig.Instance.EnableChecks)
+            if (!OpenXRRuntime.name.Contains("Oculus") && PluginConfig.Instance.EnableChecks)
             {
-                Plugin.Log.Warn("OpenXR runtime is not oculus, ignoring");
+                Plugin.Log.Warn("OpenXR runtime is not Oculus, ignoring");
                 return true;
             }
 
