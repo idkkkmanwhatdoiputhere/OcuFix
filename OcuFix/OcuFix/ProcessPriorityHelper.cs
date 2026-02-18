@@ -20,6 +20,7 @@ namespace OcuFix
             }
         }
 
+       /* oculus-platform-runtime only does entitlement checks for the oculus store version of beat saber, no need to have it on AboveNormal priority
         private static ProcessPriorityClass _targetRuntimePriorityClass = ProcessPriorityClass.AboveNormal;
         private static void SwapRuntime()
         {
@@ -33,7 +34,7 @@ namespace OcuFix
                 (runtimeProcess.PriorityClass, _targetRuntimePriorityClass) = (_targetRuntimePriorityClass, runtimeProcess.PriorityClass);
                 Plugin.Log.Info("Runtime priority set");
             }
-        }
+        }*/
 
         private static ProcessPriorityClass _targetServerPriorityClass = ProcessPriorityClass.AboveNormal;
         private static void SwapServer()
@@ -57,7 +58,7 @@ namespace OcuFix
 
             if (Configuration.PluginConfig.Instance.SetPriority)
             {
-                SwapRuntime();
+                //SwapRuntime();
                 SwapServer();
             }
         }

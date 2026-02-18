@@ -12,7 +12,7 @@ namespace OcuFix.Configuration
         public virtual bool SetPriority { get; set; } = true;
         public virtual bool Restore { get; set; } = true;
         public virtual bool GamePriority { get; set; } = true;
-        public virtual string DebugToolPath { get; set; } = @"C:\Program Files\Oculus\Support\oculus-diagnostics\OculusDebugToolCLI.exe";
+        public virtual string DebugToolPath { get; set; } = @"%OculusBase%\Support\oculus-diagnostics\OculusDebugToolCLI.exe";
         public virtual bool EnableChecks { get; set; } = true;
 
         public virtual void OnReload()

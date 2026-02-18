@@ -40,7 +40,7 @@ namespace OcuFix
 
             File.WriteAllText(CommandTempFile, command + "\r\nexit\r\n");
 
-            var debugToolPath = Configuration.PluginConfig.Instance.DebugToolPath;
+            var debugToolPath = Environment.ExpandEnvironmentVariables(Configuration.PluginConfig.Instance.DebugToolPath); //fixes the check after changing debugToolPath to have %OculusBase%
             if (!File.Exists(debugToolPath))
                 throw new Exception("Debug tool path is invalid!");
 

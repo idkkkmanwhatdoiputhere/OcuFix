@@ -19,12 +19,13 @@ namespace OcuFix
     {
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
+        internal static VRPlatformSDK VRPlatformSDK { get; }
 
         private bool ShouldIgnore()
         {
-            if (!XRSettings.loadedDeviceName.ToLower().Contains("oculus") && PluginConfig.Instance.EnableChecks)
+            if (VRPlatformSDK is VRPlatformSDK.Oculus && PluginConfig.Instance.EnableChecks)
             {
-                Plugin.Log.Warn("Oculus vrmode not set, ignoring");
+                Plugin.Log.Warn("OpenXR runtime is not oculus, ignoring");
                 return true;
             }
 
@@ -44,7 +45,6 @@ namespace OcuFix
             Log = logger;
 
             PluginConfig.Instance = config.Generated<PluginConfig>();
-            BSMLSettings.instance.AddSettingsMenu("OcuFix", "OcuFix.Views.Settings.bsml", Configuration.PluginConfig.Instance);
         }
 
         [OnStart]
@@ -55,6 +55,12 @@ namespace OcuFix
 
             AswHelper.DisableAswWrapper();
             ProcessPriorityHelper.SwapPrioritiesWrapper();
+            BeatSaberMarkupLanguage.Util.MainMenuAwaiter.MainMenuInitializing += MainMenuInit;
+        }
+        
+        public void MainMenuInit()
+        {
+            BSMLSettings.Instance.AddSettingsMenu("OcuFix", "OcuFix.Views.Settings.bsml", PluginConfig.Instance);
         }
 
         [OnExit]
