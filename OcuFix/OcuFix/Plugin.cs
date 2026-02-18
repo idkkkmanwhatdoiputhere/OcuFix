@@ -28,12 +28,6 @@ namespace OcuFix
                 return true;
             }
 
-            if (Environment.CommandLine.ToLower().Contains("fpfc") && PluginConfig.Instance.EnableChecks)
-            {
-                Plugin.Log.Warn("FPFC mode enabled, ignoring");
-                return true;
-            }
-
             return false;
         }
 
